@@ -54,7 +54,7 @@ public class ClientApiController implements ClientApi {
         return oneClient;
     }
     
-    public @ResponseBody void updateClient(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid, @ApiParam(value = "Text of the clientAction to be saved"  )  @Valid @RequestBody ClientAction action) {
+    public @ResponseBody void addActionToClient(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid, @ApiParam(value = "Text of the clientAction to be saved"  )  @Valid @RequestBody ClientAction action) {
     	this.clientService.addActionToClient(uuid, action);
 	}
 

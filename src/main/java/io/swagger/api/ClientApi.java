@@ -40,14 +40,14 @@ public interface ClientApi {
     Client getClientById(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid);
     
     
-    @ApiOperation(value = "", nickname = "UpdateClient", notes = "update client preference", tags={  })
+    @ApiOperation(value = "", nickname = "addActionToClient", notes = "add a single action to the client", tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 201, message = "Successfully update the client Info") })
+        @ApiResponse(code = 201, message = "Successfully add the action") })
     @RequestMapping(value = "/client/{uuid}",
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.POST)
-    void updateClient(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid, @ApiParam(value = "Text of the client to be saved"  )  @Valid @RequestBody  ClientAction action);
+    void addActionToClient(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid, @ApiParam(value = "Text of the client to be saved"  )  @Valid @RequestBody  ClientAction action);
     
     
     @ApiOperation(value = "", nickname = "deleteActionById", notes = "delete action by its id of a single client", tags={  })
