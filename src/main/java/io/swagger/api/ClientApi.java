@@ -78,6 +78,16 @@ public interface ClientApi {
         produces = { "application/json" }, 
         method = RequestMethod.GET)
     ArrayList<ClientAction> getAllActions(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid);
+    
+    
+    @ApiOperation(value = "", nickname = "addBatchActionsToClient", notes = "add some actions to a single client", tags={  })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "Actions added successfully"),
+        @ApiResponse(code = 404, message = "Actions were not found") })
+    @RequestMapping(value = "/client/{uuid}/recents",
+        produces = { "application/json" }, 
+        method = RequestMethod.POST)
+    void addBatchActionsToClient(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid, @ApiParam(value = "Text of the clientAction to be saved"  )  @Valid @RequestBody List<ClientAction> actions);
 
     
     @ApiOperation(value = "", nickname = "deleteAllActions", notes = "Delete all recent actions of a single client", tags={  })

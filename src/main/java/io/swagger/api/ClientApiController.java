@@ -71,6 +71,10 @@ public class ClientApiController implements ClientApi {
 		return this.clientService.getAllActions(uuid);
 	}
 	
+	public @ResponseBody void addBatchActionsToClient(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid, @ApiParam(value = "Text of the clientAction to be saved"  )  @Valid @RequestBody List<ClientAction> actions){
+		this.clientService.addBatchActionsToClient(uuid, actions);
+	};
+	
 	public @ResponseBody void deleteAllActions(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid){
 		this.clientService.deleteAllActions(uuid);
 	};
