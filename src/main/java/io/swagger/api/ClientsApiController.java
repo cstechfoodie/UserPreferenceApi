@@ -46,6 +46,7 @@ public class ClientsApiController implements ClientsApi {
 
     public @ResponseBody ResponseEntity<List<Client>> getAllClients() {
         String accept = request.getHeader("Accept");
+        
         if (accept != null) {
             return new ResponseEntity<List<Client>>(this.clientRepository.getAll(), HttpStatus.OK);
         }
@@ -53,7 +54,7 @@ public class ClientsApiController implements ClientsApi {
     }
 
     public @ResponseBody void postClient(@ApiParam(value = "Text of the client to be saved"  )  @Valid @RequestBody Client client) {
-        this.clientRepository.save(client);
+    		this.clientRepository.save(client);
     }
 
 }

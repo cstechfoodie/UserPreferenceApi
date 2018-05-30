@@ -49,9 +49,14 @@ public class ClientApiController implements ClientApi {
         this.clientService = clientService;
     }
 
-    public @ResponseBody Client getClientById(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid) {
+    public @ResponseBody ResponseEntity<Client> getClientById(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid) {
         Client oneClient = this.clientService.findClientById(uuid);
-        return oneClient;
+        if(oneClient != null){
+        	return new ResponseEntity<Client>(oneClient, HttpStatus.OK);
+        }
+        else{
+        	return new ResponseEntity<Client>(HttpStatus.NOT_FOUND);
+        } 
     }
     
     public @ResponseBody void addActionToClient(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid, @ApiParam(value = "Text of the clientAction to be saved"  )  @Valid @RequestBody ClientAction action) {
@@ -59,16 +64,25 @@ public class ClientApiController implements ClientApi {
 	}
 
 	
-	public @ResponseBody ClientAction getActionById(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid,@ApiParam(value = "unique identifier of the action",required=true) @PathVariable("id") String id) {
-		return this.clientService.getActionById(uuid, id);
+	public @ResponseBody ResponseEntity<ClientAction> getActionById(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid,@ApiParam(value = "unique identifier of the action",required=true) @PathVariable("id") String id) {
+		ClientAction action = this.clientService.getActionById(uuid, id);
+		if(action != null){
+			return new ResponseEntity<ClientAction>(action, HttpStatus.OK);
+		}
+		else{
+			return new ResponseEntity<ClientAction>(HttpStatus.NOT_FOUND);
+		}
+		
 	}
 	
 	public @ResponseBody void deleteActionById(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid,@ApiParam(value = "unique identifier of the action",required=true) @PathVariable("id") String id){
 		this.clientService.deleteActionById(uuid, id);
 	};
 
-	public @ResponseBody ArrayList<ClientAction> getAllActions(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid) {
-		return this.clientService.getAllActions(uuid);
+	public @ResponseBody ResponseEntity<ArrayList<ClientAction>> getAllActions(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid) {
+		ArrayList<ClientAction> actions = this.clientService.getAllActions(uuid);
+		return new ResponseEntity<ArrayList<ClientAction>>(actions, HttpStatus.OK);
+
 	}
 	
 	public @ResponseBody void addBatchActionsToClient(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid, @ApiParam(value = "Text of the clientAction to be saved"  )  @Valid @RequestBody List<ClientAction> actions){

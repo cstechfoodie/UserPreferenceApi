@@ -37,7 +37,7 @@ public interface ClientApi {
     @RequestMapping(value = "/client/{uuid}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    Client getClientById(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid);
+    ResponseEntity<Client> getClientById(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid);
     
     
     @ApiOperation(value = "", nickname = "addActionToClient", notes = "add a single action to the client", tags={  })
@@ -66,7 +66,7 @@ public interface ClientApi {
     @RequestMapping(value = "/client/{uuid}/recent/{id}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ClientAction getActionById(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid,@ApiParam(value = "unique identifier of the action",required=true) @PathVariable("id") String id);
+    ResponseEntity<ClientAction> getActionById(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid,@ApiParam(value = "unique identifier of the action",required=true) @PathVariable("id") String id);
     
     
     
@@ -77,7 +77,7 @@ public interface ClientApi {
     @RequestMapping(value = "/client/{uuid}/recents",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ArrayList<ClientAction> getAllActions(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid);
+    ResponseEntity<ArrayList<ClientAction>> getAllActions(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid);
     
     
     @ApiOperation(value = "", nickname = "addBatchActionsToClient", notes = "add some actions to a single client", tags={  })
