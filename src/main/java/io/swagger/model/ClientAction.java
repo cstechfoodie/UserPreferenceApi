@@ -5,6 +5,11 @@ import java.util.Map;
 
 public class ClientAction implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1428262489050475214L;
+
 	private String id;
 	
 	private String name;
