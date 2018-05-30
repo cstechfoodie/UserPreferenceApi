@@ -55,7 +55,7 @@ public class ClientsApiController implements ClientsApi {
 
     public @ResponseBody ResponseEntity<Void> postClient(@ApiParam(value = "Text of the client to be saved"  )  @Valid @RequestBody Client client) {		
     		String accept = request.getHeader("Accept");
-            if (accept != null && client != null && accept.contains("application/json")) {
+            if (accept != null && client.getUuid() != null && accept.contains("application/json")) {
                 try {
                 	this.clientRepository.save(client);
                 	return new ResponseEntity<Void>(HttpStatus.OK);
