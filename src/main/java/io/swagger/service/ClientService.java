@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,9 +48,6 @@ public class ClientService {
 		if (action.getId() == null || action.getId().trim().length() == 0) {
 			String keys[] = client.getActions().keySet().toArray(new String[0]);
 			Arrays.sort(keys);
-			Arrays.sort(keys);
-			//System.out.print("The key of the action to be saved is: " + action.getId());
-			//System.out.println("The largest key of action is: " + Integer.parseInt(keys[keys.length - 1]));
 			if(keys.length >= 1)
 				action.setId(Integer.parseInt(keys[keys.length - 1]) + 1 + "");
 			else
@@ -67,8 +63,6 @@ public class ClientService {
 			if (action.getId() == null || action.getId().trim().length() == 0) {
 				String keys[] = client.getActions().keySet().toArray(new String[0]);
 				Arrays.sort(keys);
-				//System.out.print("The key of the action to be saved is: " + action.getId());
-				//System.out.println("The largest key of action is: " + Integer.parseInt(keys[keys.length - 1]));
 				if(keys.length >= 1)
 					action.setId(Integer.parseInt(keys[keys.length - 1]) + 1 + "");
 				else
