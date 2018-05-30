@@ -69,7 +69,10 @@ public class ClientService {
 				Arrays.sort(keys);
 				//System.out.print("The key of the action to be saved is: " + action.getId());
 				//System.out.println("The largest key of action is: " + Integer.parseInt(keys[keys.length - 1]));
-				action.setId(Integer.parseInt(keys[keys.length - 1]) + 1 + "");
+				if(keys.length >= 1)
+					action.setId(Integer.parseInt(keys[keys.length - 1]) + 1 + "");
+				else
+					action.setId("1");
 			}
 			client.getActions().put(action.getId(), action);
 		});
