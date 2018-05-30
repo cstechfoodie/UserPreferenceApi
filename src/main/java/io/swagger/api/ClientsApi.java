@@ -43,6 +43,6 @@ public interface ClientsApi {
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.POST)
-    void postClient(@ApiParam(value = "Text of the client to be saved"  )  @Valid @RequestBody Client client);
+    ResponseEntity<Void> postClient(@ApiParam(value = "Text of the client to be saved"  )  @Valid @RequestBody Client client);
 
 }

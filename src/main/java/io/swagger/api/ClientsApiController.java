@@ -46,15 +46,25 @@ public class ClientsApiController implements ClientsApi {
 
     public @ResponseBody ResponseEntity<List<Client>> getAllClients() {
         String accept = request.getHeader("Accept");
-        
-        if (accept != null) {
+        if (accept != null && accept.contains("application/json")) {
             return new ResponseEntity<List<Client>>(this.clientRepository.getAll(), HttpStatus.OK);
         }
         return new ResponseEntity<List<Client>>(HttpStatus.BAD_REQUEST);
     }
 
-    public @ResponseBody void postClient(@ApiParam(value = "Text of the client to be saved"  )  @Valid @RequestBody Client client) {
-    		this.clientRepository.save(client);
+    public @ResponseBody ResponseEntity<Void> postClient(@ApiParam(value = "Text of the client to be saved"  )  @Valid @RequestBody Client client) {		
+    		String accept = request.getHeader("Accept");
+            if (accept != null && accept.contains("application/json")) {
+                try {
+                	this.clientRepository.save(client);
+                	return new ResponseEntity<Void>(HttpStatus.OK);
+                } catch (Exception e) {
+                    return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
+            else{
+            	return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+            }
     }
 
 }

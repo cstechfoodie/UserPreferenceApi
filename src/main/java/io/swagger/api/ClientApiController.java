@@ -59,8 +59,19 @@ public class ClientApiController implements ClientApi {
         } 
     }
     
-    public @ResponseBody void addActionToClient(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid, @ApiParam(value = "Text of the clientAction to be saved"  )  @Valid @RequestBody ClientAction action) {
-    	this.clientService.addActionToClient(uuid, action);
+    public @ResponseBody ResponseEntity<Void> addActionToClient(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid, @ApiParam(value = "Text of the clientAction to be saved"  )  @Valid @RequestBody ClientAction action) {
+    	String accept = request.getHeader("Accept");
+        if (accept != null && accept.contains("application/json")) {
+            try {
+            	this.clientService.addActionToClient(uuid, action);
+            	return new ResponseEntity<Void>(HttpStatus.OK);
+            } catch (Exception e) {
+                return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+        else{
+        	return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+        }
 	}
 
 	
@@ -75,8 +86,19 @@ public class ClientApiController implements ClientApi {
 		
 	}
 	
-	public @ResponseBody void deleteActionById(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid,@ApiParam(value = "unique identifier of the action",required=true) @PathVariable("id") String id){
-		this.clientService.deleteActionById(uuid, id);
+	public @ResponseBody ResponseEntity<Void> deleteActionById(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid,@ApiParam(value = "unique identifier of the action",required=true) @PathVariable("id") String id){
+		String accept = request.getHeader("Accept");
+        if (accept != null && accept.contains("application/json")) {
+            try {
+            	this.clientService.deleteActionById(uuid, id);
+            	return new ResponseEntity<Void>(HttpStatus.OK);
+            } catch (Exception e) {
+                return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+        else{
+        	return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+        }
 	};
 
 	public @ResponseBody ResponseEntity<ArrayList<ClientAction>> getAllActions(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid) {
@@ -85,11 +107,33 @@ public class ClientApiController implements ClientApi {
 
 	}
 	
-	public @ResponseBody void addBatchActionsToClient(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid, @ApiParam(value = "Text of the clientAction to be saved"  )  @Valid @RequestBody List<ClientAction> actions){
-		this.clientService.addBatchActionsToClient(uuid, actions);
+	public @ResponseBody ResponseEntity<Void> addBatchActionsToClient(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid, @ApiParam(value = "Text of the clientAction to be saved"  )  @Valid @RequestBody List<ClientAction> actions){
+		String accept = request.getHeader("Accept");
+        if (accept != null && accept.contains("application/json")) {
+            try {
+            	this.clientService.addBatchActionsToClient(uuid, actions);
+            	return new ResponseEntity<Void>(HttpStatus.OK);
+            } catch (Exception e) {
+                return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+        else{
+        	return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+        }
 	};
 	
-	public @ResponseBody void deleteAllActions(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid){
-		this.clientService.deleteAllActions(uuid);
+	public @ResponseBody ResponseEntity<Void> deleteAllActions(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid){
+		String accept = request.getHeader("Accept");
+        if (accept != null && accept.contains("application/json")) {
+            try {
+            	this.clientService.deleteAllActions(uuid);
+            	return new ResponseEntity<Void>(HttpStatus.OK);
+            } catch (Exception e) {
+                return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+        else{
+        	return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+        }
 	};
 }

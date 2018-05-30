@@ -47,7 +47,7 @@ public interface ClientApi {
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.POST)
-    void addActionToClient(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid, @ApiParam(value = "Text of the client to be saved"  )  @Valid @RequestBody  ClientAction action);
+    ResponseEntity<Void> addActionToClient(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid, @ApiParam(value = "Text of the client to be saved"  )  @Valid @RequestBody  ClientAction action);
     
     
     @ApiOperation(value = "", nickname = "deleteActionById", notes = "delete action by its id of a single client", tags={  })
@@ -57,7 +57,7 @@ public interface ClientApi {
     @RequestMapping(value = "/client/{uuid}/recent/{id}",
         produces = { "application/json" }, 
         method = RequestMethod.DELETE)
-    void deleteActionById(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid,@ApiParam(value = "unique identifier of the action",required=true) @PathVariable("id") String id);
+    ResponseEntity<Void> deleteActionById(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid,@ApiParam(value = "unique identifier of the action",required=true) @PathVariable("id") String id);
     
     @ApiOperation(value = "", nickname = "getActionById", notes = "Get action by its id of a single client", tags={  })
     @ApiResponses(value = { 
@@ -87,7 +87,7 @@ public interface ClientApi {
     @RequestMapping(value = "/client/{uuid}/recents",
         produces = { "application/json" }, 
         method = RequestMethod.POST)
-    void addBatchActionsToClient(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid, @ApiParam(value = "Text of the clientAction to be saved"  )  @Valid @RequestBody List<ClientAction> actions);
+    ResponseEntity<Void> addBatchActionsToClient(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid, @ApiParam(value = "Text of the clientAction to be saved"  )  @Valid @RequestBody List<ClientAction> actions);
 
     
     @ApiOperation(value = "", nickname = "deleteAllActions", notes = "Delete all recent actions of a single client", tags={  })
@@ -97,5 +97,5 @@ public interface ClientApi {
     @RequestMapping(value = "/client/{uuid}/recents",
         produces = { "application/json" }, 
         method = RequestMethod.DELETE)
-    void deleteAllActions(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid);
+    ResponseEntity<Void> deleteAllActions(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid);
 }
