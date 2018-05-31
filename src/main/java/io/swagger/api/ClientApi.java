@@ -55,7 +55,6 @@ public interface ClientApi {
         @ApiResponse(code = 200, message = "Action was deleted correctly"),
         @ApiResponse(code = 404, message = "Action was not found") })
     @RequestMapping(value = "/client/{uuid}/recent/{id}",
-        produces = { "application/json" }, 
         method = RequestMethod.DELETE)
     ResponseEntity<Void> deleteActionById(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid,@ApiParam(value = "unique identifier of the action",required=true) @PathVariable("id") String id);
     
