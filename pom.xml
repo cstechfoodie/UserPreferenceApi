@@ -5,14 +5,19 @@
     <packaging>jar</packaging>
     <name>swagger-spring</name>
     <version>1.0.0</version>
+    
     <properties>
-        <java.version>1.8</java.version>
-        <maven.version>3.0</maven.version>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <java.version>${parent.java.version}</java.version>
+        <maven.version>${parent.maven.version}</maven.version>
         <springfox-version>2.7.0</springfox-version>
     </properties>
-    
+
+    <!-- 
+    <parent>
+        <groupId>com.nakisa</groupId>
+		<artifactId>nakisa-boot-parent</artifactId>
+    </parent>
+     -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
