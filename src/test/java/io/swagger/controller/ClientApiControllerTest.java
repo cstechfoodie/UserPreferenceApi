@@ -179,8 +179,8 @@ public class ClientApiControllerTest {
 		method.setRequestHeader("Content-type", "application/json");
 
 		ClientAction action = new ClientAction();
-		action.setId("100");
-		action.setJsCall("onclick = function(100)");
+		action.setId("101");
+		action.setJsCall("onclick = function(101)");
 		action.setLanding("landing.html");
 
 		Gson gson = new Gson();
@@ -216,13 +216,13 @@ public class ClientApiControllerTest {
 			method.releaseConnection();
 		}
 	}
-	
+
 	@Test
 	public void getActionByIdTest_1() {
 		// Renew the instance of HttpClient.
 		client = new HttpClient();
 
-		// relative path to test 
+		// relative path to test
 		GetMethod method = new GetMethod(url + "/3/recent/80");
 
 		// Provide custom retry handler is necessary
@@ -266,8 +266,8 @@ public class ClientApiControllerTest {
 		// Renew the instance of HttpClient.
 		client = new HttpClient();
 
-		// relative path to test 
-		GetMethod method = new GetMethod(url + "/3/recent/90");
+		// relative path to test
+		GetMethod method = new GetMethod(url + "/3/recent/notfound90");
 
 		// Provide custom retry handler is necessary
 		method.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new DefaultHttpMethodRetryHandler(3, false));
@@ -304,7 +304,7 @@ public class ClientApiControllerTest {
 			method.releaseConnection();
 		}
 	}
-	
+
 	@Test
 	public void deleteActionByIdTest_1() {
 		// Renew the instance of HttpClient.
@@ -348,14 +348,13 @@ public class ClientApiControllerTest {
 			method.releaseConnection();
 		}
 	}
-	
-	
+
 	@Test
 	public void getAllActionsTest_1() {
 		// Renew the instance of HttpClient.
 		client = new HttpClient();
 
-		// relative path to test 
+		// relative path to test
 		GetMethod method = new GetMethod(url + "/3/recents");
 
 		// Provide custom retry handler is necessary
@@ -409,12 +408,12 @@ public class ClientApiControllerTest {
 		action1.setId("200");
 		action1.setJsCall("onclick = function(200)");
 		action1.setLanding("landing.html");
-		
+
 		ClientAction action2 = new ClientAction();
 		action2.setId("300");
 		action2.setJsCall("onclick = function(300)");
 		action2.setLanding("landing.html");
-		
+
 		ArrayList<ClientAction> actions = new ArrayList<ClientAction>();
 		actions.add(action1);
 		actions.add(action2);
@@ -422,7 +421,7 @@ public class ClientApiControllerTest {
 		Gson gson = new Gson();
 		String input = gson.toJson(actions);
 		method.setRequestBody(input);
-		
+
 		try {
 			int statusCode = client.executeMethod(method);
 
@@ -452,7 +451,7 @@ public class ClientApiControllerTest {
 			method.releaseConnection();
 		}
 	}
-	
+
 	@Test
 	public void addBatchActionsToClientTest_2() {
 
@@ -461,19 +460,19 @@ public class ClientApiControllerTest {
 
 		// Provide custom retry handler is necessary
 		method.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new DefaultHttpMethodRetryHandler(3, false));
-		//method.setRequestHeader("Accept", "application/json");
+		// method.setRequestHeader("Accept", "application/json");
 		method.setRequestHeader("Content-type", "application/json");
 
 		ClientAction action1 = new ClientAction();
 		action1.setId("200");
 		action1.setJsCall("onclick = function(400)");
 		action1.setLanding("landing.html");
-		
+
 		ClientAction action2 = new ClientAction();
 		action2.setId("300");
 		action2.setJsCall("onclick = function(500)");
 		action2.setLanding("landing.html");
-		
+
 		ArrayList<ClientAction> actions = new ArrayList<ClientAction>();
 		actions.add(action1);
 		actions.add(action2);
@@ -481,7 +480,7 @@ public class ClientApiControllerTest {
 		Gson gson = new Gson();
 		String input = gson.toJson(actions);
 		method.setRequestBody(input);
-		
+
 		try {
 			int statusCode = client.executeMethod(method);
 
@@ -511,21 +510,19 @@ public class ClientApiControllerTest {
 			method.releaseConnection();
 		}
 	}
-	
-	
+
 	@Test
 	public void deleteAllActionsTest_1() {
 		// Renew the instance of HttpClient.
 		client = new HttpClient();
 
-		// relative path to test 
+		// relative path to test
 		DeleteMethod method = new DeleteMethod(url + "/2/recents");
 
 		// Provide custom retry handler is necessary
 		method.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new DefaultHttpMethodRetryHandler(3, false));
-		//method.setRequestHeader("Accept", "application/json");
+		// method.setRequestHeader("Accept", "application/json");
 		method.setRequestHeader("Content-type", "application/json");
-		
 
 		try {
 			// Execute the method.
@@ -557,9 +554,5 @@ public class ClientApiControllerTest {
 			method.releaseConnection();
 		}
 	}
-	
-	
-
-
 
 }
