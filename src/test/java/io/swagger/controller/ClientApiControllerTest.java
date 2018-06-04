@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.stream.Collectors;
 
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
@@ -19,15 +20,21 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.junit.Test;
 
+import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
+import io.swagger.model.Client;
 import io.swagger.model.ClientAction;
+
 
 public class ClientApiControllerTest {
 
 	private static String url = "http://localhost:8080/client";
 
 	private static HttpClient client = new HttpClient();
+	
+	private static Gson gson = new Gson();
+	
 
 	@Test
 	public void getClientByIdTest_1() {
@@ -48,11 +55,13 @@ public class ClientApiControllerTest {
 
 			// JUnit Assertion
 			assertEquals(200, statusCode, 0.0);
-
+			assertNotSame(0 , method.getResponseBodyAsString().length());
+			
 			// HttpClient Logging
 			if (statusCode != HttpStatus.SC_OK) {
 				System.err.println("Method failed: " + method.getStatusLine());
 			}
+			
 
 			// Read the response body.
 			InputStream responseBody = method.getResponseBodyAsStream();
@@ -92,7 +101,9 @@ public class ClientApiControllerTest {
 
 			// JUnit Assertion
 			assertEquals(404, statusCode, 0.0);
-
+			assertEquals(0, method.getResponseBodyAsString().length(), 0.0);
+			
+			
 			// HttpClient Logging
 			if (statusCode != HttpStatus.SC_OK) {
 				System.err.println("Method failed: " + method.getStatusLine());
@@ -100,6 +111,7 @@ public class ClientApiControllerTest {
 
 			// Read the response body.
 			InputStream responseBody = method.getResponseBodyAsStream();
+			
 
 			String result = new BufferedReader(new InputStreamReader(responseBody)).lines()
 					.collect(Collectors.joining("\n"));
@@ -233,9 +245,14 @@ public class ClientApiControllerTest {
 		try {
 			// Execute the method.
 			int statusCode = client.executeMethod(method);
+			
+			String responseBodyAsString = method.getResponseBodyAsString();
+			ClientAction action = gson.fromJson(responseBodyAsString, ClientAction.class);
 
 			// JUnit Assertion
 			assertEquals(200, statusCode, 0.0);
+			assertEquals("80", action.getId());
+			assertEquals("welcome.html", action.getLanding());
 
 			// HttpClient Logging
 			if (statusCode != HttpStatus.SC_OK) {
@@ -321,7 +338,8 @@ public class ClientApiControllerTest {
 		try {
 			// Execute the method.
 			int statusCode = client.executeMethod(method);
-
+				
+			//Client client = repository.findById("100");
 			// JUnit Assertion
 			assertEquals(200, statusCode, 0.0);
 
@@ -355,7 +373,7 @@ public class ClientApiControllerTest {
 		client = new HttpClient();
 
 		// relative path to test
-		GetMethod method = new GetMethod(url + "/3/recents");
+		GetMethod method = new GetMethod(url + "/1/recents");
 
 		// Provide custom retry handler is necessary
 		method.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new DefaultHttpMethodRetryHandler(3, false));
@@ -366,8 +384,12 @@ public class ClientApiControllerTest {
 			// Execute the method.
 			int statusCode = client.executeMethod(method);
 
+			String responseBodyAsString = method.getResponseBodyAsString();			
+			ArrayList<ClientAction> actions = gson.fromJson(responseBodyAsString, new TypeToken<ArrayList<ClientAction>>(){}.getType());
+			
 			// JUnit Assertion
 			assertEquals(200, statusCode, 0.0);
+			//assertEquals(3, actions.size(), 0.0);
 
 			// HttpClient Logging
 			if (statusCode != HttpStatus.SC_OK) {

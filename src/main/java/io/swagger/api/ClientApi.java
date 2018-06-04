@@ -35,6 +35,7 @@ public interface ClientApi {
         @ApiResponse(code = 200, message = "Client was fetched correctly"),
         @ApiResponse(code = 404, message = "Client was not found") })
     @RequestMapping(value = "/client/{uuid}",
+    	consumes ={"*/*"},
         produces = { "application/json" }, 
         method = RequestMethod.GET)
     ResponseEntity<Client> getClientById(@ApiParam(value = "unique identifier of the client",required=true) @PathVariable("uuid") String uuid);

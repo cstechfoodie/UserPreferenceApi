@@ -56,7 +56,8 @@ public class ClientApiController implements ClientApi {
             	return new ResponseEntity<Client>(oneClient, HttpStatus.OK);
             }
             else{
-            	return new ResponseEntity<Client>(HttpStatus.NOT_FOUND);
+            	oneClient = null;
+            	return new ResponseEntity<Client>(oneClient, HttpStatus.NOT_FOUND);
             }
         }
         catch(Exception e){
